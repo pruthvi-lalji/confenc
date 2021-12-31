@@ -15,15 +15,19 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafView;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import java.util.Locale;
 
 @Configuration
 public class ConferenceConfig implements WebMvcConfigurer {
 
+    /** Uncomment this to include thymeleaf*/
+    /*
     @Autowired
     private ApplicationContext applicationContext;
-
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/files/**")
@@ -50,14 +54,29 @@ public class ConferenceConfig implements WebMvcConfigurer {
     }
 
 
+    /** Comment this section to use thymeleft instead of jsp*/
+
     @Bean
     public ViewResolver viewResolver(){
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
         bean.setPrefix("/WEB-INF/jsp/");
         bean.setSuffix(".jsp");
-        bean.setOrder(0);
+                bean.setOrder(0);
         return bean;
     }
+
+
+    /**Uncomment this section to integrate thymeleaf*/
+    /*
+        @Bean
+    public ViewResolver thymeleafResolver(){
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setOrder(0);
+        return viewResolver;
+    }
+
+
 
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
@@ -75,7 +94,7 @@ public class ConferenceConfig implements WebMvcConfigurer {
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
-
+*/
 
 
 }
